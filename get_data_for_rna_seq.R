@@ -90,17 +90,17 @@ obtain_study_data_rnaseq <- function(genes,queryprovisionals,threshold){
     }
   }
   
-  pnpla2rna <- mapply(foo3,geneticprofilesidszscores,
+  mygenerna <- mapply(foo3,geneticprofilesidszscores,
                       caselistzscores,
                       SIMPLIFY = TRUE)
   
   #Create 4 empty vectors to represent shallow deletion, deep deletion, gain and amplification.
-  upregfreq <- rep(NA, length(pnpla2rna))
-  downregfreq <- rep(NA,length(pnpla2rna))
+  upregfreq <- rep(NA, length(mygenerna))
+  downregfreq <- rep(NA,length(mygenerna))
   
-  for(i in seq(1:length(pnpla2rna))){
-    upregfreq[i] <- sum(pnpla2rna[[i]] > threshold)/length(pnpla2rna[[i]])
-    downregfreq[i] <- sum(pnpla2rna[[i]] < -threshold)/length(pnpla2rna[[i]])
+  for(i in seq(1:length(mygenerna))){
+    upregfreq[i] <- sum(mygenerna[[i]] > threshold)/length(mygenerna[[i]])
+    downregfreq[i] <- sum(mygenerna[[i]] < -threshold)/length(mygenerna[[i]])
   }
   
   names(upregfreq) <- names(downregfreq) <- queriedstudies[,2]
@@ -111,7 +111,4 @@ obtain_study_data_rnaseq <- function(genes,queryprovisionals,threshold){
   
   return(result)
 }
-
-pnpla2rna <- obtain_study_data_rnaseq("PNPLA2",TRUE)
-liperna <- obtain_study_data_rnaseq("LIPE",TRUE)
   
