@@ -150,9 +150,3 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
   
   return(result)
 }
-
-
-
-
-pnpla2 <- obtain_study_data_mutations_cna("PNPLA2", TRUE)
-lipe <- obtain_study_data_mutations_cna("LIPE", TRUE)
