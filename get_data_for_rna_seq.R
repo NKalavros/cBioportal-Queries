@@ -1,5 +1,6 @@
 #Takes the same input as others plus a z-score threshold (positive integer)
 #Returns frequency of alterations in all queried studies.
+#Not correctly commented yet, since it is very much like the previous function and pretty self-explanatory
 obtain_study_data_rnaseq <- function(genes,queryprovisionals,threshold){
   #Load the package
   require(cgdsr)
