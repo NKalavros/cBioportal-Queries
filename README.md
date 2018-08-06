@@ -1,2 +1,2 @@
 # cBioportal-Queries
-Query the cBioportal datasets through the cgdsr package in order to return mutation frequencies, CNA frequencies and z-score alteration frequencies for the queried studies
+Query the cBioportal datasets through the cgdsr package in order to return mutation frequencies, CNA frequencies and z-score alteration frequencies for the queried studies. The queried studies include all studies for which cBioportal contains datasets, except the TCGA PanCancer Atlas ones. It must be noted that some studies share samples (e.g. THCA published and THCA provisional).
