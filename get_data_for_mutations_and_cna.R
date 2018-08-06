@@ -111,35 +111,35 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
     }
   }
   
-  pnpla2mut <- mapply(foo3,geneticprofilesidsmutations,
+  mygenemut <- mapply(foo3,geneticprofilesidsmutations,
                    caselistsmutations,
                    SIMPLIFY = TRUE)
   
   #Create an empty vector
-  mutfreq <- rep(NA,length(pnpla2mut))
+  mutfreq <- rep(NA,length(mygenemut))
   
   #Find frequencies
-  for(i in seq(1:length(pnpla2mut))){
-    mutfreq[i] <- sum(!is.na(pnpla2mut[[i]]))/length(pnpla2mut[[i]])
+  for(i in seq(1:length(mygenemut))){
+    mutfreq[i] <- sum(!is.na(mugenemut[[i]]))/length(mygenemut[[i]])
     
   }
   names(mutfreq) <- queriedstudies[,2]
   
   #Same thing for the CNAs
-  pnpla2cna <- mapply(foo3,geneticprofileidscna,caselistscna,
+  mygenecna <- mapply(foo3,geneticprofileidscna,caselistscna,
                    SIMPLIFY = TRUE)
   
   #Create 4 empty vectors to represent shallow deletion, deep deletion, gain and amplification.
-  gainfreq <- rep(NA, length(pnpla2cna))
-  doublegainfreq <- rep(NA,length(pnpla2cna))
-  shallowlossfreq <- rep(NA,length(pnpla2cna))
-  deepdeletionfreq <- rep(NA,length(pnpla2cna))
+  gainfreq <- rep(NA, length(mygenecna))
+  doublegainfreq <- rep(NA,length(mygenecna))
+  shallowlossfreq <- rep(NA,length(mygenecna))
+  deepdeletionfreq <- rep(NA,length(mygenecna))
   
-  for(i in seq(1:length(pnpla2cna))){
-    gainfreq[i] <- sum(pnpla2cna[[i]] == 1)/length(pnpla2cna[[i]])
-    doublegainfreq[i] <- sum(pnpla2cna[[i]] == 2)/length(pnpla2cna[[i]])
-    shallowlossfreq[i] <- sum(pnpla2cna[[i]] == -1)/length(pnpla2cna[[i]])
-    deepdeletionfreq[i] <- sum(pnpla2cna[[i]] == -2)/length(pnpla2cna[[i]])
+  for(i in seq(1:length(mygenecna))){
+    gainfreq[i] <- sum(mygenecna[[i]] == 1)/length(mygenecna[[i]])
+    doublegainfreq[i] <- sum(mygenecna[[i]] == 2)/length(mygenecna[[i]])
+    shallowlossfreq[i] <- sum(mygenecna[[i]] == -1)/length(mygenecna[[i]])
+    deepdeletionfreq[i] <- sum(mygenecna[[i]] == -2)/length(mygenecna[[i]])
   }
   
   names(gainfreq) <- names(doublegainfreq) <- names(shallowlossfreq) <- names(deepdeletionfreq) <- queriedstudies[,2]
