@@ -1,6 +1,5 @@
 #Takes the same input as others plus a z-score threshold (positive integer)
 #Returns frequency of alterations in all queried studies.
-#Not correctly commented yet, since it is very much like the previous function and pretty self-explanatory
 obtain_study_data_rnaseq <- function(genes,queryprovisionals,threshold){
   #Load the package
   require(cgdsr)
@@ -90,25 +89,26 @@ obtain_study_data_rnaseq <- function(genes,queryprovisionals,threshold){
     }
   }
   
-  mygenerna <- mapply(foo3,geneticprofilesidszscores,
+  pnpla2rna <- mapply(foo3,geneticprofilesidszscores,
                       caselistzscores,
                       SIMPLIFY = TRUE)
   
   #Create 4 empty vectors to represent shallow deletion, deep deletion, gain and amplification.
-  upregfreq <- rep(NA, length(mygenerna))
-  downregfreq <- rep(NA,length(mygenerna))
+  upregfreq <- rep(NA, length(pnpla2rna))
+  downregfreq <- rep(NA,length(pnpla2rna))
   
-  for(i in seq(1:length(mygenerna))){
-    upregfreq[i] <- sum(mygenerna[[i]] > threshold)/length(mygenerna[[i]])
-    downregfreq[i] <- sum(mygenerna[[i]] < -threshold)/length(mygenerna[[i]])
+  for(i in seq(1:length(pnpla2rna))){
+    upregfreq[i] <- sum(pnpla2rna[[i]] > threshold)/length(pnpla2rna[[i]])
+    downregfreq[i] <- sum(pnpla2rna[[i]] < -threshold)/length(pnpla2rna[[i]])
   }
   
   names(upregfreq) <- names(downregfreq) <- queriedstudies[,2]
   
-  result <- list(upregfreq,downregfreq)
+  result <- data.frame(cbind(upregfreq,downregfreq))
   
-  names(result) <- c("Upregulated","Downregulated")
+  rownames(result) <- names(upregfreq)
+  
+  colnames(result) <- c("Upregulated","Downregulated")
   
   return(result)
 }
-  
