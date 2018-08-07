@@ -85,7 +85,7 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
     if(sum(grepl("sequenced",datacaselists[[i]],
                  ignore.case = TRUE)) > 0){
       caselistsmutations[i] <- datacaselists[[i]][grepl("sequenced",datacaselists[[i]],
-                                                      ignore.case = TRUE)]
+                                                        ignore.case = TRUE)]
     }
   }
   
@@ -94,7 +94,7 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
                  ignore.case = TRUE)) > 0){
       caselistscna[i] <- (datacaselists[[i]][grepl("cna$",datacaselists[[i]],
                                                    ignore.case = TRUE)])
-    
+      
     }
   }
   
@@ -105,15 +105,15 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
       return(NA)
     }else{
       return(c(getProfileData(x = mycgds,
-                            genes = genes,
-                            geneticProfiles = geneticprofilesid,
-                            caseList = caselist)))
+                              genes = genes,
+                              geneticProfiles = geneticprofilesid,
+                              caseList = caselist)))
     }
   }
   
   mygenemut <- mapply(foo3,geneticprofilesidsmutations,
-                   caselistsmutations,
-                   SIMPLIFY = TRUE)
+                      caselistsmutations,
+                      SIMPLIFY = TRUE)
   
   #Create an empty vector
   mutfreq <- rep(NA,length(mygenemut))
@@ -127,7 +127,7 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
   
   #Same thing for the CNAs
   mygenecna <- mapply(foo3,geneticprofileidscna,caselistscna,
-                   SIMPLIFY = TRUE)
+                      SIMPLIFY = TRUE)
   
   #Create 4 empty vectors to represent shallow deletion, deep deletion, gain and amplification.
   gainfreq <- rep(NA, length(mygenecna))
@@ -144,9 +144,9 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
   
   names(gainfreq) <- names(doublegainfreq) <- names(shallowlossfreq) <- names(deepdeletionfreq) <- queriedstudies[,2]
   
-  result <- list(mutfreq,gainfreq,doublegainfreq,shallowlossfreq,deepdeletionfreq)
+  result <- data.frame(cbind(mutfreq,gainfreq,doublegainfreq,shallowlossfreq,deepdeletionfreq))
   
-  names(result) <- c("Mutation Frequency","Gain Frequency","Amplification Frequency","Shallow loss Frequency","Deep deletion Frequency")
+  colnames(result) <- c("Mutation Frequency","Gain Frequency","Amplification Frequency","Shallow loss Frequency","Deep deletion Frequency")
   
   return(result)
 }
