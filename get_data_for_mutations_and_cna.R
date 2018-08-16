@@ -120,7 +120,7 @@ obtain_study_data_mutations_cna <- function(genes,queryprovisionals){
   
   #Find frequencies
   for(i in seq(1:length(mygenemut))){
-    mutfreq[i] <- sum(!is.na(mugenemut[[i]]))/length(mygenemut[[i]])
+    mutfreq[i] <- sum(!is.na(mygenemut[[i]]))/length(mygenemut[[i]])
     
   }
   names(mutfreq) <- queriedstudies[,2]
