@@ -4,7 +4,7 @@ bargraphs_mutations_cna <- function(gene,df){
   plotmutations$Mutation.Frequency <- plotmutations$Mutation.Frequency*100
     
   rotate_x_mut <- function(data, column_to_plot, labels_vec, rot_angle, spacebetweenbars, gene) {
-    op <- par(mar=c(15,6.5,6.5,2))  
+    op <- par(mar=c(16,8,8,2))  
     plt <- barplot(data[[column_to_plot]], col='steelblue', xaxt="n",
                      space = rep(spacebetweenbars,length(data[[column_to_plot]])),
                      main = paste("Mutation Frequency of", gene),
@@ -12,7 +12,7 @@ bargraphs_mutations_cna <- function(gene,df){
       text(plt, par("usr")[3], labels = labels_vec, srt = rot_angle, adj = c(1,1), xpd = TRUE, cex=0.6) 
   }
   pdf(paste(gene,"MutFreq.pdf"), width = 15, height = 10)
-  rotate_x(plotmutations,"Mutation.Frequency", rownames(plotmutations),45, 0.25, gene)
+  rotate_x_mut(plotmutations,"Mutation.Frequency", rownames(plotmutations),45, 0.25, gene)
   dev.off()
   
   plotcna <- subset(df,
